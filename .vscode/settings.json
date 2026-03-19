@@ -1,0 +1,10 @@
+{
+  /* editor related */
+  "editor.rulers": [
+    {
+      "column": 120,
+      "color": "#505050",
+    },
+  ],
+  "editor.formatOnSave": true,
+}
