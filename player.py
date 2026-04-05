@@ -19,13 +19,13 @@ class Player(pygame.sprite.Sprite):
     def __init__(self, pos, groups, category=PlayerCategory.ONE, mapping=standard_mapping):
         super().__init__(groups)  # registra o player nos grupos de sprites IMAGEM
 
-        image_path = 'asset/player-1.png'
+        image_path = 'assets/player-1.png'
 
         match category:
             case PlayerCategory.ONE:
-              image_path = 'asset/player-1.png'
+              image_path = 'assets/player-1.png'
             case PlayerCategory.TWO:
-              image_path = 'asset/player-2.png'
+              image_path = 'assets/player-2.png'
 
         self.mapping = mapping
 
