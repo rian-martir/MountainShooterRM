@@ -1,43 +1,56 @@
-# Example file showing a circle moving on screen
 import pygame
+import sys
+from player import Player, PlayerCategory, PlayerKeyboardMapping
 
-# pygame setup
+screen_width = 1280
+screen_height = 720
+
+screen_width_half = screen_width / 2
+screen_height_half = screen_height / 2
+
+screen_width_two_half = screen_width_half / 2
+screen_height_two_half = screen_height_half / 2
+
 pygame.init()
-screen = pygame.display.set_mode((1280, 720))
+
+screen = pygame.display.set_mode((screen_width, screen_height))
+
+pygame.display.set_caption("Mountain Shooter")
+
 clock = pygame.time.Clock()
-running = True
+
 dt = 0
 
-player_pos = pygame.Vector2(screen.get_width() / 2, screen.get_height() / 2)
+# Grupo que vai conter todos os sprites Sprite é qualquer objeto visual que se move ou interage no jogo
+all_sprites = pygame.sprite.Group()
 
+player_one_mapping = PlayerKeyboardMapping(up=pygame.K_w, down=pygame.K_s, left=pygame.K_a, right=pygame.K_d)
+player_two_mapping = PlayerKeyboardMapping(up=pygame.K_UP, down=pygame.K_DOWN, left=pygame.K_LEFT, right=pygame.K_RIGHT)
+
+# Criando o player no centro da tela, já adicionando ao grupo LEMBRAR DE MUDAR A POSIÇÃO PRO CANTO
+player_one = Player(pos=(screen_width_half, screen_height_half), groups=all_sprites, category=PlayerCategory.ONE, mapping=player_one_mapping)
+player_two = Player(pos=(screen_width_half, screen_height_half * 1.2), groups=all_sprites, category=PlayerCategory.TWO, mapping=player_two_mapping)
+
+running = True
 while running:
-    # poll for events
-    # pygame.QUIT event means the user clicked X to close your window
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_ESCAPE:
+                running = False
 
-    # fill the screen with a color to wipe away anything from last frame
     screen.fill("purple")
 
-    pygame.draw.circle(screen, "red", player_pos, 40)
+    # Atualiza todos os sprites (chama o update() de cada um)
+    all_sprites.update(dt)
 
-    keys = pygame.key.get_pressed()
-    if keys[pygame.K_w]:
-        player_pos.y -= 300 * dt
-    if keys[pygame.K_s]:
-        player_pos.y += 300 * dt
-    if keys[pygame.K_a]:
-        player_pos.x -= 300 * dt
-    if keys[pygame.K_d]:
-        player_pos.x += 300 * dt
+    # Desenhando todos os sprites na tela
+    all_sprites.draw(screen)
 
-    # flip() the display to put your work on screen
+    # LEMBRAR DE COMPREENDER A NECESSIDADE
     pygame.display.flip()
-
-    # limits FPS to 60
-    # dt is delta time in seconds since last frame, used for framerate-
-    # independent physics.
     dt = clock.tick(60) / 1000
 
 pygame.quit()
+sys.exit()
