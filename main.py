@@ -1,5 +1,6 @@
 import pygame
 import sys
+from enemy import Enemy
 from player import Player, PlayerCategory, PlayerKeyboardMapping
 
 screen_width = 1280
@@ -30,6 +31,12 @@ player_two_mapping = PlayerKeyboardMapping(up=pygame.K_UP, down=pygame.K_DOWN, l
 # Criando o player no centro da tela, já adicionando ao grupo LEMBRAR DE MUDAR A POSIÇÃO PRO CANTO
 player_one = Player(pos=(screen_width_half, screen_height_half), groups=all_sprites, category=PlayerCategory.ONE, mapping=player_one_mapping)
 player_two = Player(pos=(screen_width_half, screen_height_half * 1.2), groups=all_sprites, category=PlayerCategory.TWO, mapping=player_two_mapping)
+enemy = Enemy(
+    pos=(screen_width_two_half, screen_height_half),
+    groups=all_sprites,
+    target=player_one,
+    bullet_group=all_sprites,
+)
 
 running = True
 while running:
