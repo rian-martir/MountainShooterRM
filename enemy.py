@@ -10,7 +10,7 @@ class Enemy(pygame.sprite.Sprite):
         super().__init__(groups)
         self.target = target
         self.bullet_group = bullet_group
-        self._base_image = pygame.image.load("assets/enemy-1.png").convert_alpha()
+        self._base_image = pygame.image.load("assets/Enemy1.png").convert_alpha()
         self.image = self._base_image
         self.rect = self.image.get_rect(center=pos)
         self.speed = 180
