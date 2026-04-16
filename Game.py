@@ -1,11 +1,11 @@
 import pygame
-from Const import WIN_WIDTH, WIN_HEIGHT, ASSET_BG_DAY
+from Const import WIN_WIDTH, WIN_HEIGHT, BG_LIST
 
 class Game:
     def __init__(self):
         pygame.init()
         self.window = pygame.display.set_mode(size=(WIN_WIDTH, WIN_HEIGHT))
-        self.background = pygame.image.load(ASSET_BG_DAY).convert()
+        self.background = pygame.image.load(BG_LIST).convert()
         self.clock = pygame.time.Clock()
         self.running = True
 
